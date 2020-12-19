@@ -23,5 +23,10 @@ namespace EveryNote.Entities
         public virtual Users User { get; set; }
         public virtual List<Comments> Comments { get; set; }
         public virtual List<Liked> Likes { get; set; }
+        public Notes()
+        {
+            Comments = new List<Comments>();
+            Likes = new List<Liked>();
+        }
     }
 }

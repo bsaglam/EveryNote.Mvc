@@ -12,7 +12,8 @@ namespace EveryNote.BussinessLayer
         public Test()
         {
             DataBaseContext db = new DataBaseContext();
-            db.Database.CreateIfNotExists();
+            //db.Database.CreateIfNotExists();
+            db.Categories.ToList();
         }
     }
 }

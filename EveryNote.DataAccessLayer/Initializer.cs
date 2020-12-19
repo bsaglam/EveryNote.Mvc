@@ -59,7 +59,7 @@ namespace EveryNote.DataAccessLayer
                     ModifiedUser="bsaglam"
 
                 };
-
+                context.Categories.Add(cat);
                 //kategoriye ait olan notları ekleyelim
                 for (int j = 0; j < FakeData.NumberData.GetNumber(0,5); j++)
                 {
@@ -72,12 +72,39 @@ namespace EveryNote.DataAccessLayer
                         Description=FakeData.TextData.GetSentences(3),
                         ModifiedOn=DateTime.Now,
                         IsDraft=false,
-                        LikeCounts=5,
+                        LikeCounts=2,
                         Title=FakeData.TextData.GetSentence()
                     };
                     cat.Notes.Add(note);
+
+                    //notes lara ait olan => commetleri ekleyelim.
+                    for (int k = 0; k < FakeData.NumberData.GetNumber(2,5); k++)
+                    {
+                        Comments comment = new Comments()
+                        {
+                            CreatedOn = DateTime.Now,
+                            ModifiedOn = DateTime.Now,
+                            ModifiedUser = (j % 2 == 0 ? admin.UserName : standartUser.UserName),
+                            Text=FakeData.TextData.GetSentence(),
+                            User= (j % 2 == 0 ? admin : standartUser)
+                        };
+                        note.Comments.Add(comment);
+                    }
+
+                    List<Users> userList = context.Users.ToList();
+                    //note lara ait olan => like ları ekleyelim.
+                    for (int m = 0; m < note.LikeCounts; m++)
+                    {
+                        Liked likes = new Liked()
+                        {
+                            User = userList[m]
+                        };
+                        note.Likes.Add(likes);
+                    }
                 }
+                context.SaveChanges();
             }
+            
         }
     }
 }

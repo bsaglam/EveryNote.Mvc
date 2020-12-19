@@ -15,5 +15,9 @@ namespace EveryNote.DataAccessLayer
         public DbSet<Notes> Notes { get; set; }
         public DbSet<Liked> Liked { get; set; }
         public DbSet<Comments> Comments { get; set; }
+        public DataBaseContext()
+        {
+            Database.SetInitializer(new Initializer());
+        }
     }
 }
