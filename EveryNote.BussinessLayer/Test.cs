@@ -1,4 +1,5 @@
 ﻿using EveryNote.DataAccessLayer;
+using EveryNote.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +12,11 @@ namespace EveryNote.BussinessLayer
     {
         public Test()
         {
-            DataBaseContext db = new DataBaseContext();
-            //db.Database.CreateIfNotExists();
-            db.Categories.ToList();
+            //DataBaseContext db = new DataBaseContext();
+            ////db.Database.CreateIfNotExists();
+            //db.Categories.ToList();
+            Repository<Categories> categoriRepo = new Repository<Categories>();
+            List<Categories> result=categoriRepo.List();
         }
     }
 }
