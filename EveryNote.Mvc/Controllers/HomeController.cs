@@ -13,6 +13,7 @@ namespace EveryNote.Mvc.Controllers
         public ActionResult Index()
         {
             Test bl = new Test();
+            bl.SinglettonPattternTest();
             return View();
         }
     }
