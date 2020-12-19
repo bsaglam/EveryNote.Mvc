@@ -9,13 +9,15 @@ using System.Threading.Tasks;
 
 namespace EveryNote.BussinessLayer
 {
-    public class Repository<T> where T : class
+    public class Repository<T> : RepositoryBase where T : class
     {
-        private DataBaseContext db = new DataBaseContext();
+        // private DataBaseContext db = new DataBaseContext(); // bu singletondan önce böyle erişiyordu.
+         
         private DbSet<T> _dbSet;
         public Repository()
         {
-            _dbSet = db.Set<T>();
+            //<!-- Repository base'den miras aldıgımız için gerke kalmadı-->db = RepositoryBase.CreateContex();//SINGLETON PATTERNDEN SONRA DATABASECONTEXT E BU ŞEKİLDE ERİŞİLİR.
+            _dbSet = _db.Set<T>();
         }
         public List<T> List()
         {
@@ -29,7 +31,7 @@ namespace EveryNote.BussinessLayer
         }
         public int Save()
         {
-            return db.SaveChanges();
+            return _db.SaveChanges();
         }
 
         public int Insert(T obj)

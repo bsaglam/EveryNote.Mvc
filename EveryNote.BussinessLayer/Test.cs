@@ -28,7 +28,7 @@ namespace EveryNote.BussinessLayer
             Repository<Users> user_repo = new Repository<Users>();
 
             Notes note = note_repo.Find(x => x.Id == 3);
-            Users user = user_repo.Find(x => x.Id == 3);
+            Users user = user_repo.Find(x => x.Id == 2);
             Comments comment = new Comments()
             {
                 CreatedOn=DateTime.Now,
