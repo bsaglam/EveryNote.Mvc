@@ -7,9 +7,9 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EveryNote.BussinessLayer
+namespace EveryNote.DataAccessLayer.EntityFramework
 {
-    public class Repository<T> : RepositoryBase where T : class
+    public class Repository<T> : RepositoryBase, IRepository<T> where T : class
     {
         // private DataBaseContext db = new DataBaseContext(); // bu singletondan önce böyle erişiyordu.
          
