@@ -1,4 +1,5 @@
 ﻿using EveryNote.BussinessLayer;
+using EveryNote.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +13,13 @@ namespace EveryNote.Mvc.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            Test bl = new Test();
-            bl.SinglettonPattternTest();
-            return View();
+            if (TempData["notes"] != null)
+            {
+                return View(TempData["notes"] as List<Notes>);
+            }
+            NoteManager nm = new NoteManager();
+            List<Notes> notes = nm.GetAllNotes();
+            return View(notes);
         }
     }
 }

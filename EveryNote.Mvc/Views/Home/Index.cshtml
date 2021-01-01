@@ -1,4 +1,6 @@
-﻿<!-- Page Content -->
+﻿@using EveryNote.Entities
+@model List<Notes>
+<!-- Page Content -->
 <div class="container">
 
     <div class="row">
@@ -41,175 +43,43 @@
             </div>
 
             <div class="row">
+                @foreach (Notes item in @Model)
+                {
+                    <div class="col-sm-4 col-lg-4 col-md-4">
+                        <div class="thumbnail">
+                            <img src="http://placehold.it/320x150" alt="@item.Title">
+                            <div class="caption">
+                                <h4>
+                                    <a href="#">@item.Title</a>
+                                </h4>
+                                @if (!String.IsNullOrEmpty(item.Description) && item.Description.Length >= 67)
+                                {
+                                    <p>@(item.Description+"...")</p>
+                                    <p><a href="#" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-chevron-right"></span>devamı</a></p>
+                                }
+                                else
+                                {
+                                    <p>@item.Description</p>
+                                }
 
-                <div class="col-sm-4 col-lg-4 col-md-4">
-                    <div class="thumbnail">
-                        <img src="http://placehold.it/320x150" alt="">
-                        <div class="caption">
-                            <h4>
-                                <a href="#">First Product</a>
-                            </h4>
-                            <p>Mi, id sollicitudin urna fermentum ut fusce varius nisl ac ipsum gravida vel pretium tellus.</p>
-                            <h6>
-                                <span class="glyphicon glyphicon-user">burcusaglam</span><br />
-                                <span class="glyphicon glyphicon-time">@DateTime.Now</span>
-                            </h6>
-                            <hr />
-                        </div>
-                        <div class="ratings">
-                            <p class="pull-right">
-                                <button class="btn btn-default btn-xs" type="button"><span class="glyphicon glyphicon-star"></span>15 reviews</button>
-                            </p>
-                            <p>
-                                <button class="btn btn-default btn-xs" type="button"><span class="glyphicon glyphicon-star"></span></button>
-                            </p>
+                                <h6>
+                                    <span class="glyphicon glyphicon-user">@item.User.UserName</span><br />
+                                    <span class="glyphicon glyphicon-time">@item.ModifiedOn.ToString("dd.MM.yy HH:mm")</span>
+                                </h6>
+                                <hr />
+                            </div>
+                            <div class="ratings">
+                                <p class="pull-right">
+                                    <button class="btn btn-default btn-xs" type="button"><span class="glyphicon glyphicon-star"></span>@item.LikeCounts</button>
+                                </p>
+                                <p>
+                                    <button class="btn btn-default btn-xs" type="button"><span class="glyphicon glyphicon-comment"></span>Yorumlar</button>
+                                </p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-sm-4 col-lg-4 col-md-4">
-                    <div class="thumbnail">
-                        <img src="http://placehold.it/320x150" alt="">
-                        <div class="caption">
-                            <h4>
-                                <a href="#">First Product</a>
-                            </h4>
-                            <p>Mi, id sollicitudin urna fermentum ut fusce varius nisl ac ipsum gravida vel pretium tellus.</p>
-                            <h6>
-                                <span class="glyphicon glyphicon-user">burcusaglam</span><br />
-                                <span class="glyphicon glyphicon-time">@DateTime.Now</span>
-                            </h6>
-                            <hr />
-                        </div>
-                        <div class="ratings">
-                            <p class="pull-right">
-                                <button class="btn btn-default btn-xs" type="button"><span class="glyphicon glyphicon-star"></span>15 reviews</button>
-                            </p>
-                            <p>
-                                <button class="btn btn-default btn-xs" type="button"><span class="glyphicon glyphicon-star"></span></button>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4 col-lg-4 col-md-4">
-                    <div class="thumbnail">
-                        <img src="http://placehold.it/320x150" alt="">
-                        <div class="caption">
-                            <h4>
-                                <a href="#">First Product</a>
-                            </h4>
-                            <p>Mi, id sollicitudin urna fermentum ut fusce varius nisl ac ipsum gravida vel pretium tellus.</p>
-                            <h6>
-                                <span class="glyphicon glyphicon-user">burcusaglam</span><br />
-                                <span class="glyphicon glyphicon-time">@DateTime.Now</span>
-                            </h6>
-                            <hr />
-                        </div>
-                        <div class="ratings">
-                            <p class="pull-right">
-                                <button class="btn btn-default btn-xs" type="button"><span class="glyphicon glyphicon-star"></span>15 reviews</button>
-                            </p>
-                            <p>
-                                <button class="btn btn-default btn-xs" type="button"><span class="glyphicon glyphicon-star"></span></button>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4 col-lg-4 col-md-4">
-                    <div class="thumbnail">
-                        <img src="http://placehold.it/320x150" alt="">
-                        <div class="caption">
-                            <h4>
-                                <a href="#">First Product</a>
-                            </h4>
-                            <p>Mi, id sollicitudin urna fermentum ut fusce varius nisl ac ipsum gravida vel pretium tellus.</p>
-                            <h6>
-                                <span class="glyphicon glyphicon-user">burcusaglam</span><br />
-                                <span class="glyphicon glyphicon-time">@DateTime.Now</span>
-                            </h6>
-                            <hr />
-                        </div>
-                        <div class="ratings">
-                            <p class="pull-right">
-                                <button class="btn btn-default btn-xs" type="button"><span class="glyphicon glyphicon-star"></span>15 reviews</button>
-                            </p>
-                            <p>
-                                <button class="btn btn-default btn-xs" type="button"><span class="glyphicon glyphicon-star"></span></button>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4 col-lg-4 col-md-4">
-                    <div class="thumbnail">
-                        <img src="http://placehold.it/320x150" alt="">
-                        <div class="caption">
-                            <h4>
-                                <a href="#">First Product</a>
-                            </h4>
-                            <p>Mi, id sollicitudin urna fermentum ut fusce varius nisl ac ipsum gravida vel pretium tellus.</p>
-                            <h6>
-                                <span class="glyphicon glyphicon-user">burcusaglam</span><br />
-                                <span class="glyphicon glyphicon-time">@DateTime.Now</span>
-                            </h6>
-                            <hr />
-                        </div>
-                        <div class="ratings">
-                            <p class="pull-right">
-                                <button class="btn btn-default btn-xs" type="button"><span class="glyphicon glyphicon-star"></span>15 reviews</button>
-                            </p>
-                            <p>
-                                <button class="btn btn-default btn-xs" type="button"><span class="glyphicon glyphicon-star"></span></button>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4 col-lg-4 col-md-4">
-                    <div class="thumbnail">
-                        <img src="http://placehold.it/320x150" alt="">
-                        <div class="caption">
-                            <h4>
-                                <a href="#">First Product</a>
-                            </h4>
-                            <p>Mi, id sollicitudin urna fermentum ut fusce varius nisl ac ipsum gravida vel pretium tellus.</p>
-                            <h6>
-                                <span class="glyphicon glyphicon-user">burcusaglam</span><br />
-                                <span class="glyphicon glyphicon-time">@DateTime.Now</span>
-                            </h6>
-                            <hr />
-                        </div>
-                        <div class="ratings">
-                            <p class="pull-right">
-                                <button class="btn btn-default btn-xs" type="button"><span class="glyphicon glyphicon-star"></span>15 reviews</button>
-                            </p>
-                            <p>
-                                <button class="btn btn-default btn-xs" type="button"><span class="glyphicon glyphicon-star"></span></button>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4 col-lg-4 col-md-4">
-                    <div class="thumbnail">
-                        <img src="http://placehold.it/320x150" alt="">
-                        <div class="caption">
-                            <h4>
-                                <a href="#">First Product</a>
-                            </h4>
-                            <p>Mi, id sollicitudin urna fermentum ut fusce varius nisl ac ipsum gravida vel pretium tellus.</p>
-                            <h6>
-                                <span class="glyphicon glyphicon-user">burcusaglam</span><br />
-                                <span class="glyphicon glyphicon-time">@DateTime.Now</span>
-                            </h6>
-                            <hr />
-                        </div>
-                        <div class="ratings">
-                            <p class="pull-right">
-                                <button class="btn btn-default btn-xs" type="button"><span class="glyphicon glyphicon-star"></span>15 reviews</button>
-                            </p>
-                            <p>
-                                <button class="btn btn-default btn-xs" type="button"><span class="glyphicon glyphicon-star"></span></button>
-                            </p>
-                        </div>
-                    </div>
-                </div>
+                }
+
 
 
             </div>

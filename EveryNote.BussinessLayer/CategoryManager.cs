@@ -15,5 +15,10 @@ namespace EveryNote.BussinessLayer
         {
             return repo.List();
         }
+
+        public Categories GetCategoryById(int id)
+        {
+            return repo.Find(x=>x.Id==id);
+        }
     }
 }
