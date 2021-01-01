@@ -25,21 +25,21 @@ namespace EveryNote.Mvc.Controllers
             return PartialView("_PartialCategories", list);
         }
 
-        public ActionResult Select(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            CategoryManager cm = new CategoryManager();
-            Categories cat = cm.GetCategoryById(id.Value);
+        //public ActionResult Select(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    CategoryManager cm = new CategoryManager();
+        //    Categories cat = cm.GetCategoryById(id.Value);
 
-            if (cat == null)
-            {
-                return HttpNotFound();
-            }
-            TempData["notes"] = cat.Notes;
-            return RedirectToAction("Index","Home");
-        }
+        //    if (cat == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    TempData["notes"] = cat.Notes;
+        //    return RedirectToAction("Index","Home");
+        //}
     }
 }
