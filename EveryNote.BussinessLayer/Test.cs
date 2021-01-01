@@ -1,4 +1,5 @@
 ﻿using EveryNote.DataAccessLayer;
+using EveryNote.DataAccessLayer.EntityFramework;
 using EveryNote.Entities;
 using System;
 using System.Collections.Generic;

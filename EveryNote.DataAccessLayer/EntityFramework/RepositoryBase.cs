@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EveryNote.BussinessLayer
+namespace EveryNote.DataAccessLayer.EntityFramework
 {
     public class RepositoryBase
     {

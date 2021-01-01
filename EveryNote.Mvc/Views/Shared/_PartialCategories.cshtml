@@ -1,0 +1,9 @@
+﻿@using EveryNote.Entities
+@model List<Categories>
+<p class="lead">Shop Name</p>
+<div class="list-group">
+    @foreach (var item in Model)
+    {
+        <a href="@Url.Action("Category","Select", new { id=item.Id})" class="list-group-item">@item.Title</a>
+    }
+</div>
