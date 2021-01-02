@@ -14,16 +14,16 @@ namespace EveryNote.Mvc.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            if (TempData["notes"] != null)
-            {
-                return View(TempData["notes"] as List<Notes>);
-            }
+            //if (TempData["notes"] != null)
+            //{
+            //    return View(TempData["notes"] as List<Notes>);
+            //}
             NoteManager nm = new NoteManager();
             List<Notes> notes = nm.GetAllNotes();
-            return View(notes);
+            return View(notes.OrderByDescending(x=>x.ModifiedOn).ToList());
         }
 
-        public ActionResult Select(int? id)
+        public ActionResult ByCategory(int? id)
         {
             if (id == null)
             {
@@ -39,5 +39,21 @@ namespace EveryNote.Mvc.Controllers
              
             return View("Index", cat.Notes);
         }
+        
+
+        public ActionResult MostLiked()
+        {
+            NoteManager nm = new NoteManager();
+           
+            return RedirectToAction("Index", nm.GetAllNotes().OrderByDescending(x => x.LikeCounts).ToList());
+        }
+
+        public ActionResult About()
+        {
+            
+
+            return View();
+        }
+
     }
 }
