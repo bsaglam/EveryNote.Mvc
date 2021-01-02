@@ -40,15 +40,12 @@ namespace EveryNote.Mvc.Controllers
 
             return View("Index", cat.Notes);
         }
-
-
         public ActionResult MostLiked()
         {
             NoteManager nm = new NoteManager();
 
             return RedirectToAction("Index", nm.GetAllNotes().OrderByDescending(x => x.LikeCounts).ToList());
         }
-
         public ActionResult About()
         {
 
@@ -61,28 +58,47 @@ namespace EveryNote.Mvc.Controllers
 
             return View();
         }
-
         [HttpPost]
         public ActionResult Login(LoginViewModel model)
         {
+            if (ModelState.IsValid)
+            {
 
+            }
 
-            return View();
+            return View(model);
         }
-
         public ActionResult Register()
         {
 
 
             return View();
         }
-
         [HttpPost]
         public ActionResult Register(RegisterViewModel model)
         {
+            if (ModelState.IsValid)
+            {
+                //username&email var mı kontrolü
+                //yoksa kayıt işlemi
+                //activasyon epostası
+            }
 
+             //Eğer modalState hata içeriyorsa return View(model) ile kullanıcıdan gelen aynı model tekrar gönderilir.
 
+            return RedirectToAction("RegisterOk");
+        }
+        public ActionResult ActivateUser(Guid activateId)
+        {
+
+            //kullanıcı aktf edilecek
             return View();
+
+        }
+        public ActionResult RegisterOk()
+        {
+            return View();
+
         }
     }
 }
