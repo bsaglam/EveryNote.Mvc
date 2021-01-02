@@ -1,5 +1,6 @@
 ﻿using EveryNote.BussinessLayer;
 using EveryNote.Entities;
+using EveryNote.Mvc.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,7 @@ namespace EveryNote.Mvc.Controllers
             //}
             NoteManager nm = new NoteManager();
             List<Notes> notes = nm.GetAllNotes();
-            return View(notes.OrderByDescending(x=>x.ModifiedOn).ToList());
+            return View(notes.OrderByDescending(x => x.ModifiedOn).ToList());
         }
 
         public ActionResult ByCategory(int? id)
@@ -36,24 +37,52 @@ namespace EveryNote.Mvc.Controllers
             {
                 return HttpNotFound();
             }
-             
+
             return View("Index", cat.Notes);
         }
-        
+
 
         public ActionResult MostLiked()
         {
             NoteManager nm = new NoteManager();
-           
+
             return RedirectToAction("Index", nm.GetAllNotes().OrderByDescending(x => x.LikeCounts).ToList());
         }
 
         public ActionResult About()
         {
-            
+
+
+            return View();
+        }
+        public ActionResult Login()
+        {
+
 
             return View();
         }
 
+        [HttpPost]
+        public ActionResult Login(LoginViewModel model)
+        {
+
+
+            return View();
+        }
+
+        public ActionResult Register()
+        {
+
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Register(RegisterViewModel model)
+        {
+
+
+            return View();
+        }
     }
 }
