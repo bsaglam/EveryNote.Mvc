@@ -1,7 +1,6 @@
 ﻿using EveryNote.BussinessLayer;
 using EveryNote.Entities;
 using EveryNote.Entities.ViewModels;
-using EveryNote.Mvc.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -84,7 +83,8 @@ namespace EveryNote.Mvc.Controllers
                 //yoksa kayıt işlemi
                 //activasyon epostası
                 /* Bu işler user ile ilgili olduğu için UserManager olşturalım.*/
-
+                UserManager um = new UserManager();
+                um.RegisterUser(model);
 
             }
 
