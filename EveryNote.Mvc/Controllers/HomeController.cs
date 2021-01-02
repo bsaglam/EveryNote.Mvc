@@ -1,5 +1,6 @@
 ﻿using EveryNote.BussinessLayer;
 using EveryNote.Entities;
+using EveryNote.Entities.ViewModels;
 using EveryNote.Mvc.Models.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -78,10 +79,13 @@ namespace EveryNote.Mvc.Controllers
         public ActionResult Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
-            {
+            {   /*Bu işlerin Bussiness katmana ait orda yapılması gerekir.*/
                 //username&email var mı kontrolü
                 //yoksa kayıt işlemi
                 //activasyon epostası
+                /* Bu işler user ile ilgili olduğu için UserManager olşturalım.*/
+
+
             }
 
              //Eğer modalState hata içeriyorsa return View(model) ile kullanıcıdan gelen aynı model tekrar gönderilir.

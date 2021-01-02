@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace EveryNote.Mvc.Models.ViewModels
+namespace EveryNote.Entities.ViewModels
 {
     public class LoginViewModel
     {
