@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BussinessLayerResult.cs" />
     <Compile Include="Categories.cs" />
     <Compile Include="Comments.cs" />
     <Compile Include="EntityBase.cs" />

@@ -84,13 +84,18 @@ namespace EveryNote.Mvc.Controllers
                 //activasyon epostası
                 /* Bu işler user ile ilgili olduğu için UserManager olşturalım.*/
                 UserManager um = new UserManager();
-                um.RegisterUser(model);
-
+                BussinessLayerResult<Users> blr= um.RegisterUser(model);
+                if (blr.Errors.Count>0)
+                {
+                    blr.Errors.ForEach(x=>ModelState.AddModelError("",x));
+                    return View(model);
+                }
+                return RedirectToAction("RegisterOk");
             }
 
-             //Eğer modalState hata içeriyorsa return View(model) ile kullanıcıdan gelen aynı model tekrar gönderilir.
-
-            return RedirectToAction("RegisterOk");
+            //Eğer modalState hata içeriyorsa return View(model) ile kullanıcıdan gelen aynı model tekrar gönderilir.
+            return View(model);
+            
         }
         public ActionResult ActivateUser(Guid activateId)
         {
