@@ -1,5 +1,6 @@
 ﻿using EveryNote.DataAccessLayer;
 using EveryNote.DataAccessLayer.Abstract;
+using EveryNote.Entities;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -13,7 +14,7 @@ namespace EveryNote.DataAccessLayer.EntityFramework
     public class Repository<T> : RepositoryBase, IRepository<T> where T : class
     {
         // private DataBaseContext db = new DataBaseContext(); // bu singletondan önce böyle erişiyordu.
-         
+
         private DbSet<T> _dbSet;
         public Repository()
         {
@@ -26,7 +27,7 @@ namespace EveryNote.DataAccessLayer.EntityFramework
             return _dbSet.ToList();
         }
 
-        public List<T> List(Expression<Func<T,bool>> expression)
+        public List<T> List(Expression<Func<T, bool>> expression)
         {
             return _dbSet.Where(expression).ToList();
         }
@@ -38,6 +39,16 @@ namespace EveryNote.DataAccessLayer.EntityFramework
         public int Insert(T obj)
         {
             _dbSet.Add(obj);
+            if (obj is EntityBase)
+            {
+                EntityBase eb = obj as EntityBase;
+                DateTime now = DateTime.Now;
+                eb.CreatedOn = now;
+                eb.ModifiedOn = now;
+                eb.ModifiedUser = "system"; // TODO : sistemdeki kullanıcı yazılacak.
+
+            }
+
             return Save();
         }
 
@@ -49,6 +60,13 @@ namespace EveryNote.DataAccessLayer.EntityFramework
 
         public int Update(T obj)
         {
+            if (obj is EntityBase)
+            {
+                EntityBase eb = obj as EntityBase;
+                eb.ModifiedOn = DateTime.Now;
+                eb.ModifiedUser = "system"; // TODO : sistemdeki kullanıcı yazılacak.
+
+            }
             return Save();
         }
         public T Find(Expression<Func<T, bool>> expression)

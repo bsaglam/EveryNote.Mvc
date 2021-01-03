@@ -42,14 +42,17 @@ namespace EveryNote.BussinessLayer
                 int dbResult=repo.Insert(new Users() {
                     EMail=model.Email,
                     Password=model.Password,
-                    UserName=model.UserName
+                    UserName=model.UserName,
+                    GuidId=Guid.NewGuid(),
+                    IsActive=false,
+                    IsAdmin=false
                 });
                 if (dbResult>0)
                 {
                     Users result = repo.Find(x => x.UserName == model.UserName && x.EMail == model.Email);
                     blr.Model = result;
 
-                    // TODO : Aktivasyon aili gönderilecek.
+                    // TODO : Aktivasyon maili gönderilecek.
                 }
             }
             return blr;
