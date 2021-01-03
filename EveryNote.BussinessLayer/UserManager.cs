@@ -1,5 +1,6 @@
 ﻿using EveryNote.DataAccessLayer.EntityFramework;
 using EveryNote.Entities;
+using EveryNote.Entities.ErrorManager;
 using EveryNote.Entities.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -26,11 +27,11 @@ namespace EveryNote.BussinessLayer
             {
                 if (user.UserName == model.UserName)
                 {
-                    blr.Errors.Add("Bu kullanıcı adı ile kullanıcı zaten bulunmaktadır.");
+                    blr.AddError(ErrorMessageCode.UserIsAlreadyExist,"Bu kullanıcı adı ile bir hesap bulunmaktadır.");
                 }
                 if (user.EMail == model.Email)
                 {
-                    blr.Errors.Add("Bu email ile kullanıcı kaydı bulunmaktadır. ");
+                    blr.AddError(ErrorMessageCode.EmailIsAlreadyExist, "Bu Email ile bir hesap bulunmaktadır.");
                 }
 
             }
@@ -57,5 +58,31 @@ namespace EveryNote.BussinessLayer
             }
             return blr;
         }
+
+
+
+
+        public BussinessLayerResult<Users> LoginUser(LoginViewModel model)
+        {
+            BussinessLayerResult<Users> blr = new BussinessLayerResult<Users>();
+            Repository<Users> repo = new Repository<Users>();
+            blr.Model = repo.Find(x=>x.EMail==model.Email && x.Password==model.Password);
+            if (blr.Model != null)
+            {
+                if (!blr.Model.IsActive)
+                {
+                    blr.AddError(ErrorMessageCode.AccountIsNotActive, "Kullanıcı hesabı aktif değil.");
+                }
+               
+            }
+            else
+            {
+                blr.AddError(ErrorMessageCode.EmailOrPasswordWrong, "Kullanıcı adı veya şifre hatalı.");
+            }
+            
+            return blr;
+        }
     }
+
+
 }

@@ -55,6 +55,8 @@
     <Compile Include="Categories.cs" />
     <Compile Include="Comments.cs" />
     <Compile Include="EntityBase.cs" />
+    <Compile Include="ErrorManager\ErrorMessage.cs" />
+    <Compile Include="ErrorManager\ErrorMessageCode.cs" />
     <Compile Include="Liked.cs" />
     <Compile Include="Notes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

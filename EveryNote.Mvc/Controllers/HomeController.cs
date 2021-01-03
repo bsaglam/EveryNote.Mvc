@@ -54,20 +54,29 @@ namespace EveryNote.Mvc.Controllers
         }
         public ActionResult Login()
         {
-
-
             return View();
         }
+
         [HttpPost]
         public ActionResult Login(LoginViewModel model)
         {
             if (ModelState.IsValid)
             {
-
+                //var mı kontrolü- 
+                UserManager um = new UserManager();
+                BussinessLayerResult<Users> result = um.LoginUser(model);
+                if (result.Errors.Count > 0)
+                {
+                    result.Errors.ForEach(x => ModelState.AddModelError("", x.Message));
+                    return View(model);
+                }
+                Session["user"] = result.Model; // kullanıcı var ise session'a at
+                return RedirectToAction("Index"); //yönlendir
             }
 
             return View(model);
         }
+
         public ActionResult Register()
         {
 
@@ -84,10 +93,10 @@ namespace EveryNote.Mvc.Controllers
                 //activasyon epostası
                 /* Bu işler user ile ilgili olduğu için UserManager olşturalım.*/
                 UserManager um = new UserManager();
-                BussinessLayerResult<Users> blr= um.RegisterUser(model);
-                if (blr.Errors.Count>0)
+                BussinessLayerResult<Users> blr = um.RegisterUser(model);
+                if (blr.Errors.Count > 0)
                 {
-                    blr.Errors.ForEach(x=>ModelState.AddModelError("",x));
+                    blr.Errors.ForEach(x => ModelState.AddModelError("", x.Message));
                     return View(model);
                 }
                 return RedirectToAction("RegisterOk");
@@ -95,7 +104,7 @@ namespace EveryNote.Mvc.Controllers
 
             //Eğer modalState hata içeriyorsa return View(model) ile kullanıcıdan gelen aynı model tekrar gönderilir.
             return View(model);
-            
+
         }
         public ActionResult ActivateUser(Guid activateId)
         {
