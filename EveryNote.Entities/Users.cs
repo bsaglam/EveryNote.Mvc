@@ -20,6 +20,9 @@ namespace EveryNote.Entities
 
         [Required, StringLength(100)]
         public string Password { get; set; }
+
+        [StringLength(50)]
+        public string ImageFilePath { get; set; }
         public bool IsActive { get; set; }
         public Guid GuidId { get; set; }
         public bool IsAdmin { get; set; }

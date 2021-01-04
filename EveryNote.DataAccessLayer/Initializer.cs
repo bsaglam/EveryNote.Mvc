@@ -26,7 +26,8 @@ namespace EveryNote.DataAccessLayer
                 Password="Qs159159",
                 ModifiedOn=DateTime.Now.AddMinutes(5),
                 ModifiedUser="bsaglam",
-                GuidId=Guid.NewGuid()
+                GuidId=Guid.NewGuid(),
+                ImageFilePath="/img/user.png"
             };
             Users standartUser = new Users()
             {
@@ -40,7 +41,8 @@ namespace EveryNote.DataAccessLayer
                 Password = "Qs159159",
                 ModifiedOn = DateTime.Now.AddMinutes(5),
                 ModifiedUser = "bsaglam",
-                GuidId = Guid.NewGuid()
+                GuidId = Guid.NewGuid(),
+                ImageFilePath = "/img/user.png"
             };
 
             context.Users.Add(admin);
