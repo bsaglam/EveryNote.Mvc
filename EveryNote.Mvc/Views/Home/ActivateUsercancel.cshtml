@@ -1,0 +1,46 @@
+﻿
+@using EveryNote.Entities.ErrorManager
+@model List<ErrorMessage>
+
+@{
+
+    ViewBag.Title = "Login";
+}
+<link href="~/Content/login-register-css/login.css" rel="stylesheet" />
+
+@using (Html.BeginForm())
+{
+    <div id="login">
+        <h3 class="text-center text-white pt-5">Kayıt işlemi Başarılı</h3>
+        <div class="container">
+            <div id="login-row" class="row justify-content-center align-items-center">
+                @Html.ValidationSummary(false)
+                <div id="login-column" class="col-md-6 offset-md-3">
+                    <div id="login-box" class="col-md-12">
+                        <form id="login-form" class="form" action="" method="post">
+                            <h3 class="text-center text-info">Bir hata ile karşılaştık.</h3>
+                            @foreach (var item in Model)
+                            {
+                                <p>@item.Message</p>
+                            }
+                            <p>Lütfen E-posta adresine gönderilen aktivasyon linkine tıklayarak hesabınızı aktifleştiriniz.</p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+<script>
+    $(function () {
+        $("footer").parent().hide();
+        setTimeout(function () {
+            window.location = "/Home/Index";
+        }, 3000);
+    });
+</script>
+
+
+

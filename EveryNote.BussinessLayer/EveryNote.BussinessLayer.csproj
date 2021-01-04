@@ -62,6 +62,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\EveryNote.Common\EveryNote.Common.csproj">
+      <Project>{3FFF90C7-ED76-4EE9-9FF9-570B53CF2AD7}</Project>
+      <Name>EveryNote.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EveryNote.DataAccessLayer\EveryNote.DataAccessLayer.csproj">
       <Project>{4db0f177-1b47-4129-b9f3-3a4d744ba7b7}</Project>
       <Name>EveryNote.DataAccessLayer</Name>

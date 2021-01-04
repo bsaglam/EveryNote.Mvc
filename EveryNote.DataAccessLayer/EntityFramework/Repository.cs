@@ -34,7 +34,17 @@ namespace EveryNote.DataAccessLayer.EntityFramework
         }
         public int Save()
         {
-            return _db.SaveChanges();
+            try
+            {
+                return _db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+
+                Console.Write(ex);
+            }
+
+            return 0;
         }
 
         public int Insert(T obj)

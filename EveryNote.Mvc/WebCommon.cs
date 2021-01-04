@@ -12,7 +12,13 @@ namespace EveryNote.Mvc
         public string GetCurrentUserName()
         {
             Users user = HttpContext.Current.Session["user"] as Users;
-            return user.UserName;
+            if (user != null)
+            {
+                return user.UserName;
+            }
+
+            return new DefaultClass().GetCurrentUserName();
+           
         }
     }
 }

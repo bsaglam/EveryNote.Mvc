@@ -1,4 +1,5 @@
-﻿using EveryNote.DataAccessLayer.EntityFramework;
+﻿using EveryNote.Common.Helpers;
+using EveryNote.DataAccessLayer.EntityFramework;
 using EveryNote.Entities;
 using EveryNote.Entities.ErrorManager;
 using EveryNote.Entities.ViewModels;
@@ -54,6 +55,11 @@ namespace EveryNote.BussinessLayer
                     blr.Model = result;
 
                     // TODO : Aktivasyon maili gönderilecek.
+                    string rootUri = ConfigHelper.GetConfig<string>("rootUri");
+                    Guid guidId = blr.Model.GuidId;
+                    string uri = $"{rootUri}/Home/ActivateUser/{guidId}";
+                    string body = $" Merhaba, </br> {blr.Model.UserName} </br> Hesabınızı <a href='{uri}'> linke </a> tıklayarak aktifleştiriniz";
+                    MailHelper.SendMail(body,blr.Model.EMail,"Hesap aktifleştirme");
                 }
             }
             return blr;
@@ -81,6 +87,24 @@ namespace EveryNote.BussinessLayer
             }
             
             return blr;
+        }
+
+
+        public BussinessLayerResult<Users> ActivateUser(Guid id)
+        {
+            BussinessLayerResult<Users> result = new BussinessLayerResult<Users>();
+            Repository<Users> repository = new Repository<Users>();
+            result.Model=repository.Find(x => x.GuidId == id);
+            if (result.Model != null && !result.Model.IsActive)
+            {   
+                result.Model.IsActive = true;
+                repository.Update(result.Model);
+            }
+            else
+            {
+                result.AddError(ErrorMessageCode.ActivateIdDoesNotExist,"Aktifleştirilecek kullanıcı bulunamadı.");
+            }
+            return result;
         }
     }
 

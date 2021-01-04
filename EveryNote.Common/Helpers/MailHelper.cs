@@ -23,9 +23,9 @@ namespace EveryNote.Common.Helpers
                 SmtpClient smtp = new SmtpClient();
                 message.From = new MailAddress(ConfigHelper.GetConfig<string>("username"));
                 //gönderilecek liste içinde dönelim
-                foreach (var item in to)
+                foreach (string item in to)
                 {
-                    message.To.Add(new MailAddress("item"));
+                    message.To.Add(new MailAddress(item));
                 }
                 message.Subject = subject;
                 message.IsBodyHtml = isHtml; //to make message body as html  

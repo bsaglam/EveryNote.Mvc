@@ -1,5 +1,6 @@
 ﻿using EveryNote.BussinessLayer;
 using EveryNote.Entities;
+using EveryNote.Entities.ErrorManager;
 using EveryNote.Entities.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -106,17 +107,37 @@ namespace EveryNote.Mvc.Controllers
             return View(model);
 
         }
-        public ActionResult ActivateUser(Guid activateId)
+        public ActionResult ActivateUser(Guid id)
         {
+            //kullanıcıyı aktifleştirecek işlem BussinessLayerda yapılmalı.
+            UserManager um = new UserManager();
+            BussinessLayerResult<Users> result=um.ActivateUser(id);
+            if (result.Errors.Count>0)
+            {
+                TempData["errors"]= result.Errors;
+                return RedirectToAction("ActivateUsercancel");
+            }
+            return RedirectToAction("Index");
 
-            //kullanıcı aktf edilecek
-            return View();
+        }
+
+
+        public ActionResult ActivateUsercancel()
+        {
+            List<ErrorMessage> errorList= TempData["errors"] as List<ErrorMessage>;
+            return View(errorList);
 
         }
         public ActionResult RegisterOk()
         {
             return View();
 
+        }
+
+        public ActionResult Logout()
+        {
+            Session.Clear();
+            return RedirectToAction("Index");
         }
     }
 }
