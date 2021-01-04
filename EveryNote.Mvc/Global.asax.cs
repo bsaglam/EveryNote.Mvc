@@ -1,3 +1,4 @@
+using EveryNote.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,10 @@ namespace EveryNote.Mvc
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+
+            //Dal da kullanýcý adýnýn kullanýlabilmesi için, proje ayaða kalkerken Common katmanýndaki verileri dolduruyoruz.
+            App.Common = new WebCommon();
+
         }
     }
 }

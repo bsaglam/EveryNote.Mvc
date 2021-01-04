@@ -1,4 +1,5 @@
-﻿using EveryNote.DataAccessLayer;
+﻿using EveryNote.Common;
+using EveryNote.DataAccessLayer;
 using EveryNote.DataAccessLayer.Abstract;
 using EveryNote.Entities;
 using System;
@@ -45,7 +46,7 @@ namespace EveryNote.DataAccessLayer.EntityFramework
                 DateTime now = DateTime.Now;
                 eb.CreatedOn = now;
                 eb.ModifiedOn = now;
-                eb.ModifiedUser = "system"; // TODO : sistemdeki kullanıcı yazılacak.
+                eb.ModifiedUser = App.Common.GetCurrentUserName(); // TODO : sistemdeki kullanıcı yazılacak.
 
             }
 
@@ -64,7 +65,7 @@ namespace EveryNote.DataAccessLayer.EntityFramework
             {
                 EntityBase eb = obj as EntityBase;
                 eb.ModifiedOn = DateTime.Now;
-                eb.ModifiedUser = "system"; // TODO : sistemdeki kullanıcı yazılacak.
+                eb.ModifiedUser = App.Common.GetCurrentUserName(); // TODO : sistemdeki kullanıcı yazılacak.
 
             }
             return Save();

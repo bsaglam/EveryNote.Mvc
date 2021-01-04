@@ -232,6 +232,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WebCommon.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -268,6 +269,10 @@
     <ProjectReference Include="..\EveryNote.BussinessLayer\EveryNote.BussinessLayer.csproj">
       <Project>{178ab6af-5b2f-474b-8601-2d79c1c6759b}</Project>
       <Name>EveryNote.BussinessLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EveryNote.Common\EveryNote.Common.csproj">
+      <Project>{3fff90c7-ed76-4ee9-9ff9-570b53cf2ad7}</Project>
+      <Name>EveryNote.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\EveryNote.Entities\EveryNote.Entities.csproj">
       <Project>{aa0e6246-a265-4b51-bdb6-418f483206dd}</Project>

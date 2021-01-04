@@ -66,6 +66,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\EveryNote.Common\EveryNote.Common.csproj">
+      <Project>{3fff90c7-ed76-4ee9-9ff9-570b53cf2ad7}</Project>
+      <Name>EveryNote.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EveryNote.Entities\EveryNote.Entities.csproj">
       <Project>{aa0e6246-a265-4b51-bdb6-418f483206dd}</Project>
       <Name>EveryNote.Entities</Name>
