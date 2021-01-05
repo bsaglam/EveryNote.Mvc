@@ -249,6 +249,7 @@
     <Content Include="Views\Home\Register.cshtml" />
     <Content Include="Views\Home\RegisterOk.cshtml" />
     <Content Include="Views\Home\ActivateUsercancel.cshtml" />
+    <Content Include="Views\Home\ShowProfile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

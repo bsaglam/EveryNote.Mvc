@@ -9,7 +9,7 @@ namespace EveryNote.Entities.ViewModels
 {
     public class LoginViewModel
     {
-        [DisplayName("Kullanıcı Adı"), Required(ErrorMessage="{0} alanı boş geçilemez"),StringLength(100)]
+        [DisplayName("Email"), Required(ErrorMessage="{0} alanı boş geçilemez"),StringLength(100)]
         public string Email { get; set; }
 
         [DisplayName("Şifre"), Required(ErrorMessage = "{0} alanı boş geçilemez"), StringLength(100)]

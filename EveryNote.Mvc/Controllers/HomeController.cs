@@ -41,18 +41,21 @@ namespace EveryNote.Mvc.Controllers
 
             return View("Index", cat.Notes);
         }
+
         public ActionResult MostLiked()
         {
             NoteManager nm = new NoteManager();
 
             return RedirectToAction("Index", nm.GetAllNotes().OrderByDescending(x => x.LikeCounts).ToList());
         }
+
         public ActionResult About()
         {
 
 
             return View();
         }
+
         public ActionResult Login()
         {
             return View();
@@ -84,6 +87,7 @@ namespace EveryNote.Mvc.Controllers
 
             return View();
         }
+
         [HttpPost]
         public ActionResult Register(RegisterViewModel model)
         {
@@ -107,6 +111,7 @@ namespace EveryNote.Mvc.Controllers
             return View(model);
 
         }
+
         public ActionResult ActivateUser(Guid id)
         {
             //kullanıcıyı aktifleştirecek işlem BussinessLayerda yapılmalı.
@@ -121,13 +126,13 @@ namespace EveryNote.Mvc.Controllers
 
         }
 
-
         public ActionResult ActivateUsercancel()
         {
             List<ErrorMessage> errorList= TempData["errors"] as List<ErrorMessage>;
             return View(errorList);
 
         }
+
         public ActionResult RegisterOk()
         {
             return View();
@@ -139,5 +144,20 @@ namespace EveryNote.Mvc.Controllers
             Session.Clear();
             return RedirectToAction("Index");
         }
+        
+        public ActionResult ShowProfile()
+        {
+            Users user = Session["user"] as Users;
+            UserManager um = new UserManager();
+            BussinessLayerResult<Users> result = um.ShowProfile(user.Id);
+            if (result.Errors.Count>0)
+            {
+                //hata sayfasına yönlendirilecek.
+            }
+            return View(result.Model);
+        }
+        
+
+      
     }
 }

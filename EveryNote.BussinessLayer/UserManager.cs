@@ -106,6 +106,18 @@ namespace EveryNote.BussinessLayer
             }
             return result;
         }
+
+        public BussinessLayerResult<Users> ShowProfile(int id)
+        {
+            Repository<Users> repository = new Repository<Users>();
+            BussinessLayerResult<Users> result = new BussinessLayerResult<Users>();
+            result.Model = repository.Find(x => x.Id == id);
+            if (result.Model == null)
+            {
+                result.AddError(ErrorMessageCode.UserNotFound, "Kullanıcı bulunamadı");
+            }
+            return result;
+        }
     }
 
 
