@@ -2,6 +2,7 @@
 using EveryNote.Entities;
 using EveryNote.Entities.ErrorManager;
 using EveryNote.Entities.ViewModels;
+using EveryNote.Mvc.Models.Notifies;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -91,7 +92,7 @@ namespace EveryNote.Mvc.Controllers
         [HttpPost]
         public ActionResult Register(RegisterViewModel model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {   /*Bu işlerin Bussiness katmana ait orda yapılması gerekir.*/
                 //username&email var mı kontrolü
                 //yoksa kayıt işlemi
@@ -102,9 +103,15 @@ namespace EveryNote.Mvc.Controllers
                 if (blr.Errors.Count > 0)
                 {
                     blr.Errors.ForEach(x => ModelState.AddModelError("", x.Message));
-                    return View(model);
+                    ErrorViewModel evm = new ErrorViewModel();
+                    foreach (var item in blr.Errors)
+                    {
+                        evm.Notifies.Add(new ErrorMessage() { ErrorCode = item.ErrorCode,Message=item.Message});
+                    }
+
+                    return View("Error", evm);
                 }
-                return RedirectToAction("RegisterOk");
+                return View("Error", model);
             }
 
             //Eğer modalState hata içeriyorsa return View(model) ile kullanıcıdan gelen aynı model tekrar gönderilir.
@@ -147,14 +154,18 @@ namespace EveryNote.Mvc.Controllers
         
         public ActionResult ShowProfile()
         {
-            Users user = Session["user"] as Users;
-            UserManager um = new UserManager();
-            BussinessLayerResult<Users> result = um.ShowProfile(user.Id);
-            if (result.Errors.Count>0)
+            if (Session["user"] != null)
             {
-                //hata sayfasına yönlendirilecek.
+                Users user = Session["user"] as Users;
+                UserManager um = new UserManager();
+                BussinessLayerResult<Users> result = um.ShowProfile(user.Id);
+                if (result.Errors.Count > 0)
+                {
+                    //hata sayfasına yönlendirilecek.
+                }
+                return View(result.Model);
             }
-            return View(result.Model);
+            return RedirectToAction("Index"); // TODO : Hata sayfasına yöndendirilmeli.
         }
         
 

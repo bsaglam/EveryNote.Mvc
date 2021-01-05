@@ -1,0 +1,41 @@
+﻿@using EveryNote.Mvc.Models.Notifies
+@model ErrorViewModel
+
+
+
+@using (Html.BeginForm())
+{
+    <div id="login">
+        <h3 class="text-center text-white pt-5">@Model.Title</h3>
+        <div class="container">
+            <div id="login-row" class="row justify-content-center align-items-center">
+                @Html.ValidationSummary(false)
+                <div id="login-column" class="col-md-6 offset-md-3">
+                    <div id="login-box" class="col-md-12">
+                        <form id="login-form" class="form" action="" method="post">
+                            <h3 class="text-center text-info">@Model.Header</h3>
+                            @foreach (var item in Model.Notifies)
+                            {
+                                <p>@item.Message</p>
+                            }
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+<script>
+    $(function () {
+        $("footer").parent().hide();
+        setTimeout(function () {
+            window.location = "/Home/Index";
+        }, 10000);
+    });
+</script>
+
+
+

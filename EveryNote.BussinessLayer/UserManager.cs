@@ -23,18 +23,19 @@ namespace EveryNote.BussinessLayer
             BussinessLayerResult<Users> blr = new BussinessLayerResult<Users>();
             //1.Kullanıcı&emial db de varmı kontrolü
             Repository<Users> repo = new Repository<Users>();
-            Users user = repo.Find(x=>x.UserName == model.UserName || x.EMail == model.Email);
-            if (user != null)
+            //Users user = repo.Find(x=>x.UserName == model.UserName || x.EMail == model.Email);
+            if (/*user != null*/true)
             {
-                if (user.UserName == model.UserName)
-                {
-                    blr.AddError(ErrorMessageCode.UserIsAlreadyExist,"Bu kullanıcı adı ile bir hesap bulunmaktadır.");
-                }
-                if (user.EMail == model.Email)
-                {
-                    blr.AddError(ErrorMessageCode.EmailIsAlreadyExist, "Bu Email ile bir hesap bulunmaktadır.");
-                }
-
+                //if (user.UserName == model.UserName)
+                //{
+                //    blr.AddError(ErrorMessageCode.UserIsAlreadyExist,"Bu kullanıcı adı ile bir hesap bulunmaktadır.");
+                //}
+                //if (user.EMail == model.Email)
+                //{
+                //    blr.AddError(ErrorMessageCode.EmailIsAlreadyExist, "Bu Email ile bir hesap bulunmaktadır.");
+                //}
+                blr.AddError(ErrorMessageCode.UserIsAlreadyExist, "Bu kullanıcı adı ile bir hesap bulunmaktadır.");
+                blr.AddError(ErrorMessageCode.EmailIsAlreadyExist, "Bu Email ile bir hesap bulunmaktadır.");
             }
             else
             {
