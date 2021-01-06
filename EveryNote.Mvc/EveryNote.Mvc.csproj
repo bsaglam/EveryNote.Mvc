@@ -259,6 +259,7 @@
     <Content Include="Views\Shared\Success.cshtml" />
     <Content Include="Views\Shared\Info.cshtml" />
     <Content Include="Views\Shared\Warning.cshtml" />
+    <Content Include="Views\Home\EditUser.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

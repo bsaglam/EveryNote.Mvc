@@ -166,8 +166,76 @@ namespace EveryNote.Mvc.Controllers
             }
             return View(result.Model);
         }
-        
 
-      
+
+        public ActionResult EditUser()
+        {
+            //Bu sayfa açılırken Session'da olan kullanıcının verileri ile açılacak.
+            //Session'dan veriyi al
+            Users user = new Users();
+            user = Session["user"] as Users;
+            //BL'da Kullanıcı verilerini getir.
+            BussinessLayerResult<Users> result = new BussinessLayerResult<Users>();
+            UserManager um = new UserManager();
+            result=um.GetUserById(user.Id);
+
+            if (result.Errors.Count>0)
+            {
+                ErrorViewModel notifyList = new ErrorViewModel()
+                {
+                    Notifies = result.Errors,
+                    RedirectingUri="/Home/EditUser"
+                };
+               
+
+                return View("Error",notifyList);
+            }
+
+            EditUserViewModel model = new EditUserViewModel()
+            {   Id=result.Model.Id,
+                FirstName = result.Model.FirstName,
+                EMail = result.Model.EMail,
+                ImageFilePath= result.Model.ImageFilePath,
+                LastName = result.Model.LastName,
+                Password = result.Model.Password,
+                UserName=result.Model.UserName
+            };
+            
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult EditUser(EditUserViewModel model, HttpPostedFileBase UserImageName)
+        {
+            //gelen image 'ın tipi kontrol edilecek,
+            //gelen image göre filename oluşturulacak
+            //server'a kaydedilecek. //kaydetme sırasında hata olursa burdan hata döndür.
+            // TODO : (aslında en güzeli bu işin BL'da yapılması.)
+            //server'a kayıttan sonra BL'dan Update metodu çağrılmalı.
+            BussinessLayerResult<Users> result = new BussinessLayerResult<Users>();
+            UserManager um = new UserManager();
+            result = um.UpdateUser(model);
+            if (result.Errors.Count>0)
+            {
+                ErrorViewModel notifyList = new ErrorViewModel()
+                {
+                    Notifies = result.Errors,
+                    RedirectingUri="/Home/EditProfile"
+                };
+
+                return View("Error",notifyList);
+            }
+            //Hata varsa hata ekranına gönderilmeli
+            //hata yoksa ShowProfile sayfasına yönelendirilmeli
+            //Session değer güncellenmelidir.
+            Session["user"] = result.Model;
+             
+            return RedirectToAction("ShowProfile");
+        }
+
+
+
+
+
     }
 }

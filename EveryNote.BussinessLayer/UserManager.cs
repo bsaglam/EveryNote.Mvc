@@ -118,6 +118,53 @@ namespace EveryNote.BussinessLayer
             }
             return result;
         }
+
+
+        public BussinessLayerResult<Users> GetUserById(int Id)
+        {
+            BussinessLayerResult<Users> blr = new BussinessLayerResult<Users>();
+            Repository<Users> repo = new Repository<Users>();
+            Users user = repo.Find(x => x.Id == Id);
+            if (user == null)
+            {
+                blr.AddError(ErrorMessageCode.UserNotFound, "Kullanıcı bulunamadı.");
+            }
+            blr.Model = user;
+            return blr;
+        }
+
+        public BussinessLayerResult<Users> UpdateUser(EditUserViewModel model)
+        {
+            BussinessLayerResult<Users> blr = new BussinessLayerResult<Users>();
+            Repository<Users> repository = new Repository<Users>();
+
+            Users user = repository.Find(x=>x.UserName==model.UserName && x.EMail==model.EMail);
+            if (user != null && user.Id != model.Id)
+            {
+                blr.AddError(ErrorMessageCode.EmailIsAlreadyExist,"Bu mail adresi bir başkası tarafından kullanılıyor");
+                blr.AddError(ErrorMessageCode.UserIsAlreadyExist, "Bu kullanıcı adı bir başkası tarafından kullanılıyor");
+                return blr;
+            }
+
+            user.FirstName = model.FirstName;
+            user.LastName = model.LastName;
+            user.Password = model.Password;
+            user.EMail = model.EMail;
+            user.UserName = model.UserName;
+            
+
+            int result=repository.Update(user);
+            if (result>0)
+            {
+                blr.Model = repository.Find(x=>x.Id==model.Id);
+                
+            }
+            else
+            {
+                blr.AddError(ErrorMessageCode.UpdateIsFailed,"Güncelleme sırasında bir hata oluştu.");
+            }
+            return blr;
+        }
     }
 
 

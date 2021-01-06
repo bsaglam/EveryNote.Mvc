@@ -10,6 +10,7 @@ namespace EveryNote.Entities.ErrorManager
         EmailIsAlreadyExist=104,
         ActivateIdDoesNotExist=105,
         UserNotFound = 106,
-        SomethingIsWrong = 107
+        SomethingIsWrong = 107,
+        UpdateIsFailed = 108
     }
 }
