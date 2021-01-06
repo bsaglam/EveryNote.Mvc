@@ -1,5 +1,5 @@
 ﻿@using EveryNote.Mvc.Models.Notifies
-@model ErrorViewModel
+@model  InfoViewModel
 
 <link href="~/Content/login-register-css/login.css" rel="stylesheet" />
 
@@ -16,7 +16,7 @@
                             <h3 class="text-center text-info">@Model.Header</h3>
                             @foreach (var item in Model.Notifies)
                             {
-                                <p>@item.Message</p>
+                                <p>@item</p>
                             }
 
                         </form>
@@ -28,8 +28,8 @@
 }
 @{
     string js = String.Empty;
-    js = "setTimeout(function (){window.location = \""+ Model.RedirectingUri+"\"},"+Model.RedirectingTime+");";
- }
+    js = "setTimeout(function (){window.location = \"" + Model.RedirectingUri + "\"}," + Model.RedirectingTime + ");";
+}
 
 <script>
     $(function () {
@@ -37,6 +37,5 @@
         @Html.Raw(js);
     });
 </script>
-
 
 

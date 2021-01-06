@@ -1,22 +1,22 @@
 ﻿@using EveryNote.Mvc.Models.Notifies
-@model ErrorViewModel
+@model  SuccessViewModel
 
 <link href="~/Content/login-register-css/login.css" rel="stylesheet" />
 
 @using (Html.BeginForm())
 {
     <div id="login">
-        <h3 class="text-center text-white pt-5">@Model.Title</h3>
+        <h3 class="text-center text-white pt-5">@Model.Header</h3>
         <div class="container">
             <div id="login-row" class="row justify-content-center align-items-center">
                 @Html.ValidationSummary(false)
                 <div id="login-column" class="col-md-6 offset-md-3">
                     <div id="login-box" class="col-md-12">
                         <form id="login-form" class="form" action="" method="post">
-                            <h3 class="text-center text-info">@Model.Header</h3>
+                            <h3 class="text-center text-info">@Model.Title</h3>
                             @foreach (var item in Model.Notifies)
                             {
-                                <p>@item.Message</p>
+                                <p>@item</p>
                             }
 
                         </form>
@@ -28,8 +28,13 @@
 }
 @{
     string js = String.Empty;
-    js = "setTimeout(function (){window.location = \""+ Model.RedirectingUri+"\"},"+Model.RedirectingTime+");";
- }
+    if (Model.IsRedirecting)
+    {
+
+        js = "setTimeout(function (){window.location = \"" + Model.RedirectingUri + "\"}," + Model.RedirectingTime + ");";
+    }
+    }
+    
 
 <script>
     $(function () {
@@ -37,6 +42,5 @@
         @Html.Raw(js);
     });
 </script>
-
 
 

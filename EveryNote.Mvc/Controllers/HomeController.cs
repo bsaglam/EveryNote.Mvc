@@ -92,7 +92,7 @@ namespace EveryNote.Mvc.Controllers
         [HttpPost]
         public ActionResult Register(RegisterViewModel model)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {   /*Bu işlerin Bussiness katmana ait orda yapılması gerekir.*/
                 //username&email var mı kontrolü
                 //yoksa kayıt işlemi
@@ -103,15 +103,12 @@ namespace EveryNote.Mvc.Controllers
                 if (blr.Errors.Count > 0)
                 {
                     blr.Errors.ForEach(x => ModelState.AddModelError("", x.Message));
-                    ErrorViewModel evm = new ErrorViewModel();
-                    foreach (var item in blr.Errors)
-                    {
-                        evm.Notifies.Add(new ErrorMessage() { ErrorCode = item.ErrorCode,Message=item.Message});
-                    }
-
-                    return View("Error", evm);
+                    return View(model);
                 }
-                return View("Error", model);
+                //return RedirectToAction("RegisterOk");
+                //RegisterOK sayfasına yönlendirmek yerine artık standart olan success sayfamıza yönlendirebiliriz.
+                SuccessViewModel svm = new SuccessViewModel();
+                return View("Success", svm);
             }
 
             //Eğer modalState hata içeriyorsa return View(model) ile kullanıcıdan gelen aynı model tekrar gönderilir.
@@ -126,8 +123,15 @@ namespace EveryNote.Mvc.Controllers
             BussinessLayerResult<Users> result=um.ActivateUser(id);
             if (result.Errors.Count>0)
             {
-                TempData["errors"]= result.Errors;
-                return RedirectToAction("ActivateUsercancel");
+                //TempData["errors"]= result.Errors; //ActivateUserCancel action'ı içinde kullanılıyordu.
+                //return RedirectToAction("ActivateUsercancel");
+                //bunun yerine de Hata ekranına yönlendirip hatayı standart hata ekranında göstermeliyiz.
+                ErrorViewModel evm = new ErrorViewModel()
+                {
+                    Notifies = result.Errors
+                };
+               
+                return View("Error", evm);
             }
             return RedirectToAction("Index");
 
@@ -140,12 +144,7 @@ namespace EveryNote.Mvc.Controllers
 
         }
 
-        public ActionResult RegisterOk()
-        {
-            return View();
-
-        }
-
+        
         public ActionResult Logout()
         {
             Session.Clear();
@@ -154,18 +153,18 @@ namespace EveryNote.Mvc.Controllers
         
         public ActionResult ShowProfile()
         {
-            if (Session["user"] != null)
+            Users user = Session["user"] as Users;
+            UserManager um = new UserManager();
+            BussinessLayerResult<Users> result = um.ShowProfile(user.Id);
+            if (result.Errors.Count > 0)
             {
-                Users user = Session["user"] as Users;
-                UserManager um = new UserManager();
-                BussinessLayerResult<Users> result = um.ShowProfile(user.Id);
-                if (result.Errors.Count > 0)
+                ErrorViewModel evm = new ErrorViewModel()
                 {
-                    //hata sayfasına yönlendirilecek.
-                }
-                return View(result.Model);
+                    Notifies = result.Errors
+                };
+                return View("Error", evm);
             }
-            return RedirectToAction("Index"); // TODO : Hata sayfasına yöndendirilmeli.
+            return View(result.Model);
         }
         
 

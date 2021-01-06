@@ -6,11 +6,12 @@ using System.Web;
 
 namespace EveryNote.Mvc.Models.Notifies
 {
-    public class ErrorViewModel : NotifyViewModelBase<ErrorMessage>
+    public class WarningViewModel : NotifyViewModelBase<String>
     {
-        public ErrorViewModel()
+        public WarningViewModel()
         {
-            Header = "Hata";
+            Header = "Uyarı";
         }
+        
     }
 }

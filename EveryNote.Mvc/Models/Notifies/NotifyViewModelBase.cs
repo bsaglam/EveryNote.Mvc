@@ -25,10 +25,11 @@ namespace EveryNote.Mvc.Models.Notifies
 
             IsRedirecting = true;
 
-            RedirectingTime = 4000;
+            RedirectingTime = 3000;
 
             RedirectingUri = "/Home/Index";
 
+            Notifies = new List<T>();
         }
     }
 }

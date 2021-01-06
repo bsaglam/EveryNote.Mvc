@@ -23,19 +23,17 @@ namespace EveryNote.BussinessLayer
             BussinessLayerResult<Users> blr = new BussinessLayerResult<Users>();
             //1.Kullanıcı&emial db de varmı kontrolü
             Repository<Users> repo = new Repository<Users>();
-            //Users user = repo.Find(x=>x.UserName == model.UserName || x.EMail == model.Email);
-            if (/*user != null*/true)
+            Users user = repo.Find(x => x.UserName == model.UserName || x.EMail == model.Email);
+            if (user != null)
             {
-                //if (user.UserName == model.UserName)
-                //{
-                //    blr.AddError(ErrorMessageCode.UserIsAlreadyExist,"Bu kullanıcı adı ile bir hesap bulunmaktadır.");
-                //}
-                //if (user.EMail == model.Email)
-                //{
-                //    blr.AddError(ErrorMessageCode.EmailIsAlreadyExist, "Bu Email ile bir hesap bulunmaktadır.");
-                //}
-                blr.AddError(ErrorMessageCode.UserIsAlreadyExist, "Bu kullanıcı adı ile bir hesap bulunmaktadır.");
-                blr.AddError(ErrorMessageCode.EmailIsAlreadyExist, "Bu Email ile bir hesap bulunmaktadır.");
+                if (user.UserName == model.UserName)
+                {
+                    blr.AddError(ErrorMessageCode.UserIsAlreadyExist, "Bu kullanıcı adı ile bir hesap bulunmaktadır.");
+                }
+                if (user.EMail == model.Email)
+                {
+                    blr.AddError(ErrorMessageCode.EmailIsAlreadyExist, "Bu Email ile bir hesap bulunmaktadır.");
+                }
             }
             else
             {
@@ -48,7 +46,8 @@ namespace EveryNote.BussinessLayer
                     UserName=model.UserName,
                     GuidId=Guid.NewGuid(),
                     IsActive=false,
-                    IsAdmin=false
+                    IsAdmin=false,
+                    ImageFilePath = "/img/user.png"
                 });
                 if (dbResult>0)
                 {

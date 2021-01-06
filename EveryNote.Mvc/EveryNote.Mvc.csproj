@@ -232,8 +232,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Notifies\WarningViewModel.cs" />
+    <Compile Include="Models\Notifies\InfoViewModel.cs" />
     <Compile Include="Models\Notifies\ErrorViewModel.cs" />
     <Compile Include="Models\Notifies\NotifyViewModelBase.cs" />
+    <Compile Include="Models\Notifies\SuccessViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebCommon.cs" />
   </ItemGroup>
@@ -253,6 +256,9 @@
     <Content Include="Views\Home\ActivateUsercancel.cshtml" />
     <Content Include="Views\Home\ShowProfile.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\Success.cshtml" />
+    <Content Include="Views\Shared\Info.cshtml" />
+    <Content Include="Views\Shared\Warning.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
