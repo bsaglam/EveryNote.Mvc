@@ -34,9 +34,7 @@ namespace EveryNote.Entities
         public virtual List<Notes> Notes { get; set; }
         public virtual List<Comments> Comments { get; set; }
         public virtual List<Liked> Likes { get; set; }
+
         
-
-
-
     }
 }

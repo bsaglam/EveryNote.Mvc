@@ -208,9 +208,25 @@ namespace EveryNote.Mvc.Controllers
         public ActionResult EditUser(EditUserViewModel model, HttpPostedFileBase UserImageName)
         {
             //gelen image 'ın tipi kontrol edilecek,
-            //gelen image göre filename oluşturulacak
-            //server'a kaydedilecek. //kaydetme sırasında hata olursa burdan hata döndür.
-            // TODO : (aslında en güzeli bu işin BL'da yapılması.)
+            if (UserImageName != null && (UserImageName.ContentType == "image/jpg"|| UserImageName.ContentType == "image/jpeg" || UserImageName.ContentType == "image/png"))
+            {   //gelen image göre filename oluşturulacak
+                string fileName = $"user{model.Id}."+UserImageName.ContentType.Split('/')[1];
+                //server'a kaydedilecek. //kaydetme sırasında hata olursa burdan hata döndür.
+                try
+                {
+                    UserImageName.SaveAs(HttpContext.Server.MapPath($"~/img/{fileName}"));
+                }
+                catch (Exception ex)
+                {
+
+                    throw;
+                }
+               
+                model.ImageFilePath = $"/img/{fileName}"; //eğer bunu direk model ile binding şekilde alsaydık. Adam profil fotosunu değiştirmediği
+                                                // durumda bu değer null gelecek ve Db Deki var olan profil gidecekti.
+            }
+
+
             //server'a kayıttan sonra BL'dan Update metodu çağrılmalı.
             BussinessLayerResult<Users> result = new BussinessLayerResult<Users>();
             UserManager um = new UserManager();
@@ -220,7 +236,7 @@ namespace EveryNote.Mvc.Controllers
                 ErrorViewModel notifyList = new ErrorViewModel()
                 {
                     Notifies = result.Errors,
-                    RedirectingUri="/Home/EditProfile"
+                    RedirectingUri="/Home/EditUser"
                 };
 
                 return View("Error",notifyList);
@@ -233,9 +249,22 @@ namespace EveryNote.Mvc.Controllers
             return RedirectToAction("ShowProfile");
         }
 
+        public ActionResult DeleteUser()
+        {
+            Users user = Session["user"] as Users;
+            UserManager um = new UserManager();
+            BussinessLayerResult<Users> result = um.RemoveUserGetById(user.Id);
+            if (result.Errors.Count>0)
+            {
+                ErrorViewModel notifies = new ErrorViewModel()
+                {
+                    RedirectingUri = "/Home/ShowProfile",
+                    Notifies=result.Errors
+                };
+            }
 
-
-
-
-    }
+            Session.Clear();
+            return RedirectToAction("Index");
+        }
+}
 }

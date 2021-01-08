@@ -17,11 +17,15 @@
             <div class="row">
                 <div class="col-md-4">@Html.LabelFor(x => x.EMail)</div>
                 <div class="col-md-8"> @Html.DisplayFor(x => x.EMail)</div>
-           </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">@Html.LabelFor(x => x.Password)</div>
+                <div class="col-md-8"> @Html.DisplayFor(x => x.Password)</div>
+            </div>
             <div class="row">
                 <div class="col-md-4"> @Html.LabelFor(x => x.FirstName)</div>
                 <div class="col-md-8"> @Html.DisplayFor(x => x.FirstName)</div>
-           </div>
+            </div>
             <div class="row">
                 <div class="col-md-4">@Html.LabelFor(x => x.LastName)</div>
                 <div class="col-md-8">@Html.DisplayFor(x => x.LastName)</div>
@@ -34,8 +38,8 @@
                 </a>
 
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <a class="dropdown-item" href="/Home/EditUser">Güncelle</a>
-                    <a class="dropdown-item" href="/Home/DeleteUser">Sil</a>
+                    <a class="dropdown-item" href="@Url.Action("EditUser")">Güncelle</a>
+                    <a class="dropdown-item" href="@Url.Action("DeleteUser")" onclick="return confirm("Hesabınızı silmek istediğinize emin misiniz?");">Sil</a>
                 </div>
             </div>
         </div>

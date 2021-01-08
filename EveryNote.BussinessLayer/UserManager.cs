@@ -151,7 +151,7 @@ namespace EveryNote.BussinessLayer
             user.Password = model.Password;
             user.EMail = model.EMail;
             user.UserName = model.UserName;
-            
+            user.ImageFilePath = model.ImageFilePath;
 
             int result=repository.Update(user);
             if (result>0)
@@ -164,6 +164,27 @@ namespace EveryNote.BussinessLayer
                 blr.AddError(ErrorMessageCode.UpdateIsFailed,"Güncelleme sırasında bir hata oluştu.");
             }
             return blr;
+        }
+
+        public BussinessLayerResult<Users> RemoveUserGetById(int Id)
+        {
+            BussinessLayerResult<Users> result = new BussinessLayerResult<Users>();
+            Repository<Users> repo = new Repository<Users>();
+            result.Model = repo.Find(x=>x.Id==Id);
+            if (result.Model != null)
+            {
+                int res=repo.Delete(result.Model);
+                if (res < 1)
+                {
+                    result.AddError(ErrorMessageCode.DeleteIsFailed, "Silme işemi esnasında bir hata oluştu.");
+                    return result;
+                }  
+            }
+            else
+            {
+                result.AddError(ErrorMessageCode.UserNotFound,"Silinecek kullanıcı bulunamadı");
+            }
+            return result;
         }
     }
 

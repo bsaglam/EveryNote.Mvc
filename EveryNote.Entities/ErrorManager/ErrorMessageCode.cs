@@ -11,6 +11,7 @@ namespace EveryNote.Entities.ErrorManager
         ActivateIdDoesNotExist=105,
         UserNotFound = 106,
         SomethingIsWrong = 107,
-        UpdateIsFailed = 108
+        UpdateIsFailed = 108,
+        DeleteIsFailed = 109
     }
 }

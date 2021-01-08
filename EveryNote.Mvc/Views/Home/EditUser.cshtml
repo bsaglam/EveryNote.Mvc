@@ -4,14 +4,17 @@
 @{
     ViewBag.Title = "EditProfile";
 }
-@using (Html.BeginForm())
+@using (Html.BeginForm("EditUser", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <div class="container">
 
         <div class="row">
             <div class="col-md-4">
-                <img src=@Model.ImageFilePath id="UserImageName" name="UserImageName" />
+                <div class="row"><img src=@Model.ImageFilePath /></div>
+                <div class="row"><input type="file" name="UserImageName"/></div>
+
             </div>
+
             <div class="col-md-6">
                 <div class="row form-group">
                     <div class="col-md-4">@Html.LabelFor(x => x.UserName, new { @for = "username" })</div>
@@ -19,7 +22,11 @@
                 </div>
                 <div class="row form-group">
                     <div class="col-md-4">@Html.LabelFor(x => x.EMail, new { @for = "email" })</div>
-                    <div class="col-md-8"> @Html.EditorFor(x => x.EMail, new { @class = "form-control", @id = "email" })</div>
+                    <div class="col-md-8">@Html.EditorFor(x => x.EMail, new { @class = "form-control", @id = "email" })</div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-4">@Html.LabelFor(x => x.Password, new { @for = "password" })</div>
+                    <div class="col-md-8"> @Html.EditorFor(x => x.Password, new { @class = "form-control", @id = "password" })</div>
                 </div>
                 <div class="row form-group">
                     <div class="col-md-4"> @Html.LabelFor(x => x.FirstName, new { @for = "firstName" })</div>
@@ -34,11 +41,16 @@
                         <input type="submit" name="kaydet" class="form-control" value="kaydet" />
                     </div>
                 </div>
+                <div class="row form-group">
+                    <div class=" offset-md-8 col-md-4 ">
+                        @Html.HiddenFor(m => m.Id)
+                    </div>
+                </div>
             </div>
 
         </div>
 
 
     </div>
-}
 
+}
