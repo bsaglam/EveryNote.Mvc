@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,13 +17,13 @@ namespace EveryNote.Entities.ViewModels
         [DisplayName("soyadınız")]
         public string LastName { get; set; }
 
-        [DisplayName("Kullanıcı Adınız")]
+        [DisplayName("Kullanıcı Adınız"),Required]
         public string UserName { get; set; }
 
-        [DisplayName("Mail Adresiniz")]
+        [DisplayName("Mail Adresiniz"), Required]
         public string EMail { get; set; }
 
-        [DisplayName("Şifreniz")]
+        [DisplayName("Şifreniz"), Required]
         public string Password { get; set; }
 
         [DisplayName("Profil Fotografı")]

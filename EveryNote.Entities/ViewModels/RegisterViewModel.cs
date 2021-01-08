@@ -18,7 +18,7 @@ namespace EveryNote.Entities.ViewModels
         [DisplayName("Şifre"), Required(ErrorMessage = "{0} alanı boş geçilemez"), StringLength(100)]
         public string Password { get; set; }
 
-        [DisplayName("Şifre (Tekrar)"), Required(ErrorMessage = "{0} alanı boş geçilemez"), StringLength(100), Compare("Password",ErrorMessage ="{0} ve {1} alanı eşeleşmelidir.")]
+        [DisplayName("Şifre (Tekrar)"), Required(ErrorMessage = "{0} alanı boş geçilemez"), StringLength(100), Compare("Password",ErrorMessage ="{0} ve {1} alanı eşleşmelidir.")]
         public string RePassword { get; set; }
     }
 }

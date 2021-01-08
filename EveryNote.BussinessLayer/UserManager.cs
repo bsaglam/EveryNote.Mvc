@@ -146,8 +146,9 @@ namespace EveryNote.BussinessLayer
                 return blr;
             }
 
-            user.FirstName = model.FirstName;
-            user.LastName = model.LastName;
+            if (model.FirstName != null) user.FirstName = model.FirstName;
+            if (model.LastName != null) user.LastName = model.LastName;
+
             user.Password = model.Password;
             user.EMail = model.EMail;
             user.UserName = model.UserName;
